@@ -90,10 +90,10 @@ extension ViewController : MKMapViewDelegate{
         if overlay is MKPolyline {
             let renderer = MKPolylineRenderer(overlay: overlay)
             renderer.lineWidth = 7.0
-            renderer.strokeColor = .blue       
+            renderer.strokeColor = .blue
             
             
-            return rederer
+            return renderer
         } else {
             return MKOverlayRenderer(overlay: overlay)
         }
@@ -116,6 +116,15 @@ extension ViewController : MKMapViewDelegate{
                 guard let response = response else {return}
                 //Recuperando a rota
                 guard let route = response.routes.first else {return}
+                //Nome da rota
+                print(route.name)
+                //Tempo estimado da rota
+                print(route.expectedTravelTime)
+                //Distancia da rota
+                print(route.distance)
+                for step in route.steps {
+                    print ("Em", step.distance, "metros", step.instructions)
+                }
                 //Apagando rotas anteriores
                 self.mapView.removeOverlays(self.mapView.overlays)
                 //Adicionando o overlay da rota no mapa
